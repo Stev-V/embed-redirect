@@ -1,2 +1,8 @@
 # embed-redirect
-A Powercord plugin that changes the destination of embeds for some track-happy services.
+Tired of YouTube embeds leaving you open to trackers? This may be the plugin for you!
+
+## Supported services
+Currently, we have:
+- Youtube -> [Invidious](https://github.com/iv-org/documentation/blob/master/Invidious-Instances.md)
+
+Suggestions are appreciated!
