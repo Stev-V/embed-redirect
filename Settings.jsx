@@ -19,7 +19,7 @@ module.exports = class Settings extends React.PureComponent {
       <div>
         <TextInput
           note={<span>This is the Invidious instance that will replace all YouTube embeds. <a href="https://github.com/iv-org/documentation/blob/master/Invidious-Instances.md" target="_blank">See here</a> for a list of Invidious instances (maintained by someone else)</span>}
-          defaultValue={settings.getSetting("invidiousInstance", "")}
+          defaultValue={settings.getSetting("invidiousInstance", "yewtu.be")}
           onChange={(val) =>
             settings.updateSetting("invidiousInstance", val)
           }

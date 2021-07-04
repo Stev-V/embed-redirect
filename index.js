@@ -31,7 +31,7 @@ module.exports = class EmbedRedirect extends Plugin {
 	          if (embed.video) {
 	              if ((embed.video.originalURL ? embed.video.originalURL : embed.video.url).includes("youtube")) {
 	              	  if (!embed.video.originalURL) embed.video.originalURL = embed.video.url;
-	                  let invidiousInstance = settings.get("invidiousInstance", null)
+	                  let invidiousInstance = settings.get("invidiousInstance", "yewtu.be")
 	                  if (invidiousInstance.startsWith("https://") || invidiousInstance.startsWith("http://")) invidiousInstance = invidiousInstance.split("://")[1]
 	                  if (invidiousInstance.endsWith("/")) invidiousInstance = invidiousInstance.slice(0, invidiousInstance.length - 1)
 	                  if (!invidiousInstance) {
