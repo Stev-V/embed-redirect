@@ -14,44 +14,44 @@ const { getModule, getModuleByDisplayName } = req("webpack");
 
 const Settings = require("./Settings");
 
+const services = require("./services.js");
+
 module.exports = class EmbedRedirect extends Plugin {
-  startPlugin() {
-    settings = new MoldSettings(this);
-    settings.register({
-      id: "embed-redirect",
-      label: "Embed Redirect",
-      render: Settings,
-    });
-    this.initInject();
-  }
+    startPlugin() {
+        settings = new MoldSettings(this);
+        settings.register({
+            id: "embed-redirect",
+            label: "Embed Redirect",
+            render: Settings,
+        });
+        this.initInject();
+    }
 
-  async initInject() {
-	  inject("embed-redirect", (await getModule(["MessageAccessories"])), "default", (args, res) => {
-	      res.props.message.embeds = res.props.message.embeds.map((embed) => {
-	          if (embed.video) {
-	              if ((embed.video.originalURL ? embed.video.originalURL : embed.video.url).includes("youtube")) {
-	              	  if (!embed.video.originalURL) embed.video.originalURL = embed.video.url;
-	                  let invidiousInstance = settings.get("invidiousInstance", "yewtu.be")
-	                  if (invidiousInstance.startsWith("https://") || invidiousInstance.startsWith("http://")) invidiousInstance = invidiousInstance.split("://")[1]
-	                  if (invidiousInstance.endsWith("/")) invidiousInstance = invidiousInstance.slice(0, invidiousInstance.length - 1)
-	                  if (!invidiousInstance) {
-	                   	embed.video.url = "data:text/plain,No Invidious instance selected. You can either:\n- Go to the settings page for Embed Redirect and select one\n- Turn off Embed Redirect\n\n\n"        	
-					  } else {
-					  	embed.video.url = embed.video.url.replace("www.youtube.com", invidiousInstance)
-					  }
-	              }
-	          }
-	          return embed
-		  })
-	      return res;
-      })
-  }
+    async initInject() {
+        inject("embed-redirect", (await getModule(["MessageAccessories"])), "default", (args, res) => {
+            res.props.message.embeds = res.props.message.embeds.map((embed) => {
+                services.forEach((s) => {
+                	if (settings.get(s.name.toLowerCase() + "Active", true)) {
+	                	if (s.matches(embed)) {
+	                		s.replacefunc(embed, settings)
+	                	}
+                	}
+                })
+                return embed
+            })
+            return res;
+        })
+    }
 
-  pluginWillUnload() {
-    settings.unregister("embed-redirect");
-    uninject("embed-redirect");
-  };
+    pluginWillUnload() {
+        settings.unregister("embed-redirect");
+        uninject("embed-redirect");
+    };
 
-  start() {this.startPlugin()}
-  stop() {this.pluginWillUnload()}
+    start() {
+        this.startPlugin()
+    }
+    stop() {
+        this.pluginWillUnload()
+    }
 };
