@@ -35,7 +35,7 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			link.props.href = link.props.href.replace("www.youtube.com", setting(settings, "invidiousInstance", "yewtu.be"))
 			link.props.onClick = (e) => {}
-			link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
 			link.props.title = link.props.href
 		}
 	},
@@ -62,7 +62,7 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			link.props.href = link.props.href.replace("twitter.com", setting(settings, "nitterInstance", "nitter.moomoo.me"))
 			link.props.onClick = (e) => {}
-			link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
 			link.props.title = link.props.href
 		}
 	},
