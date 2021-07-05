@@ -66,10 +66,36 @@ module.exports = [
 			link.props.title = link.props.href
 		}
 	},
+	{
+		name: "Libreddit",
+		replaces: "reddit",
+		instances: "https://github.com/spikecodes/libreddit#instances",
+		default: "libredd.it",
+		embedMatches: (embed) => {return embed.provider && embed.provider.name == "reddit"},
+		replaceEmbed: (embed, settings) => {
+	        let instance = setting(settings, "libredditInstance", "libredd.it")
+	        if (instance) {
+	            embed.url = embed.url.replace("reddit.com", instance)
+	            if (settings.get("enableCosmetics", true)) {
+	                embed.provider.name = "Libreddit 🠔 reddit"
+	                embed.color = "#009a9a"
+	            }
+	        }
+		},
+		replaceLink: (link, settings) => {
+			if (!link.props.originallink) link.props.originallink = link.props.href
+			link.props.href = link.props.href.replace("reddit.com", setting(settings, "libredditInstance", "libredd.it"))
+			link.props.onClick = (e) => {}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			link.props.title = link.props.href
+		}
+	},
 ]
 
 module.exports.guide = {
 	"www.youtube.com": 0,
 	"youtu.be": 0,
 	"twitter.com": 1,
+	"reddit.com": 2,
+	"redd.it": 2,
 }
