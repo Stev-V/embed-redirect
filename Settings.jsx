@@ -34,16 +34,25 @@ module.exports = class Settings extends React.PureComponent {
 	          	  this.setState({ ["opened_" + s.name]: !this.state["opened_" + s.name ] })
 	          	}}>
 			      <SwitchItem
-			        note=<span>Toggles whether {s.replaces} links/embeds will be replaced with {s.name}.</span>
+			        note=<span>Toggles whether {s.replaces} embeds will be replaced with {s.name}.</span>
 			        value={settings.getSetting(s.name.toLowerCase() + "Active", true)}
 			        onChange={p=>{
 			          settings.toggleSetting(s.name.toLowerCase() + "Active", true)
                     }}
                   >
-                  	Active
+                  	Replace Embeds
+			      </SwitchItem>
+			      <SwitchItem
+			        note=<span>Toggles whether {s.replaces} links will be replaced with {s.name}.</span>
+			        value={settings.getSetting(s.name.toLowerCase() + "LinkActive", true)}
+			        onChange={p=>{
+			          settings.toggleSetting(s.name.toLowerCase() + "LinkActive", true)
+                    }}
+                  >
+                  	Replace Links
 			      </SwitchItem>
 		          <TextInput
-		            note={<span>This is the {s.name} instance that will replace all {s.replaces} links/embeds. <a href={s.instances} target="_blank">See here</a> for a list of {s.name} instances (maintained by someone else)</span>}
+		            note={<span>This is the {s.name} instance that will replace all {s.replaces} links/embeds. <a href={s.instances} rel="noreferrer noopener" target="_blank">See here</a> for a list of {s.name} instances (maintained by someone else)</span>}
 		            defaultValue={settings.getSetting(s.name.toLowerCase() + "Instance", s.default)}
 		            onChange={(val) =>
 		              settings.updateSetting(s.name.toLowerCase() + "Instance", val)
