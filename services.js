@@ -1,6 +1,8 @@
 const { req } = require("./modules/moldit.js")
 const { React } = req("webpack")
 
+const redirectLinkColor = "#1fdd7e"
+
 function setting(settings, one, two) {
     let instance = settings.get(one, two)
     if (instance.startsWith("https://") || instance.startsWith("http://")) instance = instance.split("://")[1]
@@ -37,7 +39,7 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			link.props.href = link.props.href.replace("www.youtube.com", setting(settings, "invidiousInstance", "yewtu.be"))
 			link.props.onClick = (e) => {}
-			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
 		}
 	},
@@ -66,7 +68,7 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			link.props.href = link.props.href.replace("twitter.com", setting(settings, "nitterInstance", "nitter.moomoo.me"))
 			link.props.onClick = (e) => {}
-			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
 		}
 	},
@@ -90,7 +92,7 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			link.props.href = link.props.href.replace("reddit.com", setting(settings, "libredditInstance", "libredd.it"))
 			link.props.onClick = (e) => {}
-			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
 		}
 	},
@@ -109,7 +111,7 @@ module.exports = [
 			}
 			link.props.href = link.props.href.replace("instagram.com", setting(settings, "bibliogramInstance", "bibliogram.snopyta.org"))
 			link.props.onClick = (e) => {}
-			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
 		}
 	},
@@ -124,7 +126,7 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			link.props.href = link.props.href.replace("en.wikipedia.org", setting(settings, "wikilessInstance", "wikiless.org"))
 			link.props.onClick = (e) => {}
-			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
 		}
 	},
