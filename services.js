@@ -21,10 +21,12 @@ module.exports = [
 	        if (!instance) {
 	            embed.video.url = "data:text/plain,No Invidious instance selected. You can either:\n- Go to the settings page for Embed Redirect and select one\n- Turn off Embed Redirect\n\n\n"
 	        } else {
-	            embed.video.url = embed.video.url.replace("www.youtube.com", instance)
-	            embed.provider.url = "https://" + instance
-	            embed.author.url = embed.author.url.replace("www.youtube.com", instance)
-	            embed.url = embed.url.replace("www.youtube.com", instance)
+	        	if (!settings.get("redirectColorEmbeds", true)) {
+		            embed.video.url = embed.video.url.replace("www.youtube.com", instance)
+		            embed.provider.url = "https://" + instance
+		            embed.author.url = embed.author.url.replace("www.youtube.com", instance)
+		            embed.url = embed.url.replace("www.youtube.com", instance)
+	            }
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.provider.name = "Invidious 🠔 YouTube"
 	                embed.color = "#f1680d"
@@ -48,8 +50,10 @@ module.exports = [
 		replaceEmbed: (embed, settings) => {
 	        let instance = setting(settings, "nitterInstance", "nitter.moomoo.me")
 	        if (instance) {
-	            embed.url = embed.url.replace("twitter.com", instance)
-	            embed.author.url = embed.author.url.replace("twitter.com", instance)
+				if (!settings.get("redirectColorEmbeds", true)) {
+		            embed.url = embed.url.replace("twitter.com", instance)
+		            embed.author.url = embed.author.url.replace("twitter.com", instance)
+	            }
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.footer.text = "Nitter 🠔 Twitter"
 	                delete embed.footer.iconProxyURL
@@ -75,7 +79,7 @@ module.exports = [
 		replaceEmbed: (embed, settings) => {
 	        let instance = setting(settings, "libredditInstance", "libredd.it")
 	        if (instance) {
-	            embed.url = embed.url.replace("reddit.com", instance)
+	            if (!settings.get("redirectColorEmbeds", true)) embed.url = embed.url.replace("reddit.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.provider.name = "Libreddit 🠔 reddit"
 	                embed.color = "#009a9a"
@@ -109,6 +113,21 @@ module.exports = [
 			link.props.title = link.props.href
 		}
 	},
+	{
+		name: "Wikiless",
+		replaces: "Wikipedia",
+		instances: "https://codeberg.org/orenom/Wikiless#instances",
+		default: "wikiless.org",
+		embedMatches: (embed) => {return false},
+		replaceEmbed: (embed, settings) => {},
+		replaceLink: (link, settings) => {
+			if (!link.props.originallink) link.props.originallink = link.props.href
+			link.props.href = link.props.href.replace("en.wikipedia.org", setting(settings, "wikilessInstance", "wikiless.org"))
+			link.props.onClick = (e) => {}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: "#1fdd7e"}
+			link.props.title = link.props.href
+		}
+	},
 ]
 
 module.exports.guide = {
@@ -118,4 +137,5 @@ module.exports.guide = {
 	"reddit.com": 2,
 	"redd.it": 2,
 	"instagram.com": 3,
+	"en.wikipedia.org": 4,
 }

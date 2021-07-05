@@ -26,6 +26,13 @@ module.exports = class Settings extends React.PureComponent {
             settings.toggleSetting('enableCosmetics', true)
           }}
         >Embed Cosmetics</SwitchItem>
+        <SwitchItem
+          note="Also color the links in embeds that are redirected."
+          value={settings.getSetting("redirectColorEmbeds", true)}
+          onChange={p=>{
+            settings.toggleSetting('redirectColorEmbeds', true)
+          }}
+        >Color Redirected Links in Embeds</SwitchItem>
         {
 	        services.map(s => {
 	          return <Category name={s.name + " (" + s.replaces + ")"} 
