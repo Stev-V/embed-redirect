@@ -98,11 +98,4 @@ module.exports = class EmbedRedirect extends Plugin {
         uninject("embed-redirect-link");
         uninject("embed-redirect-context-menu");
     };
-
-    start() {
-        this.startPlugin()
-    }
-    stop() {
-        this.pluginWillUnload()
-    }
 };
