@@ -5,13 +5,12 @@
  * but this copyright notice must remain unmodified.
  */
 
-const { MoldSettings, req } = require("./modules/moldit.js");
 let settings;
 
-const { Plugin } = req("entities");
-const { inject, uninject } = req("injector");
-const { getModule, getModuleByDisplayName, React } = req("webpack");
-const { findInReactTree } = req("util");
+const { Plugin } = require("powercord/entities");
+const { inject, uninject } = require("powercord/injector");
+const { getModule, getModuleByDisplayName, React } = require("powercord/webpack");
+const { findInReactTree } = require("powercord/util");
 const { clipboard } = getModule(["clipboard"], false) || {};
 
 const Settings = require("./Settings");
@@ -20,11 +19,11 @@ const services = require("./services.js");
 
 module.exports = class EmbedRedirect extends Plugin {
     startPlugin() {
-        settings = new MoldSettings(this);
-        settings.register({
-            id: "embed-redirect",
-            label: "Embed Redirect",
-            render: Settings,
+        settings = this.settings;
+        powercord.api.settings.registerSettings(this.entityID, {
+            category: this.entityID,
+            label: this.manifest.name, 
+            render: Settings
         });
         this.initInject();
     }
@@ -94,7 +93,7 @@ module.exports = class EmbedRedirect extends Plugin {
     }
 
     pluginWillUnload() {
-        settings.unregister("embed-redirect");
+		powercord.api.settings.unregisterSettings(this.entityID);
         uninject("embed-redirect");
         uninject("embed-redirect-link");
         uninject("embed-redirect-context-menu");
