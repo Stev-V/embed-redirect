@@ -37,7 +37,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace("www.youtube.com", setting(settings, "invidiousInstance", "yewtu.be"))
+			link.props.href = link.props.href.replace(/www\.youtube\.com|youtu\.be/, setting(settings, "invidiousInstance", "yewtu.be"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
@@ -90,7 +90,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace("reddit.com", setting(settings, "libredditInstance", "libredd.it"))
+			link.props.href = link.props.href.replace(/reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libredd.it"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
