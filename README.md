@@ -9,3 +9,5 @@ Currently, we have:
 - Instagram -> [Bibliogram](https://git.sr.ht/~cadence/bibliogram-docs/tree/master/docs/Instances.md)
 
 Suggestions are appreciated!
+
+![](https://media.discordapp.net/attachments/691799184063594546/862062407290191892/example1.png)
