@@ -23,11 +23,11 @@ module.exports = [
 	            embed.video.url = "data:text/plain,No Invidious instance selected. You can either:\n- Go to the settings page for Embed Redirect and select one\n- Turn off Embed Redirect\n\n\n"
 	        } else {
 	        	if (!settings.get("redirectColorEmbeds", true)) {
-		            embed.video.url = embed.video.url.replace("www.youtube.com", instance)
 		            embed.provider.url = "https://" + instance
 		            embed.author.url = embed.author.url.replace("www.youtube.com", instance)
 		            embed.url = embed.url.replace("www.youtube.com", instance)
 	            }
+	            embed.video.url = embed.video.url.replace("www.youtube.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.provider.name = "Invidious 🠔 YouTube"
 	                embed.color = "#f1680d"
