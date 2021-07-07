@@ -8,6 +8,7 @@ Currently, we have:
 - Twitter -> [Nitter](https://github.com/zedeus/nitter/wiki/Instances)
 - Reddit -> [Libreddit](https://github.com/spikecodes/libreddit#instances)
 - Instagram -> [Bibliogram](https://git.sr.ht/~cadence/bibliogram-docs/tree/master/docs/Instances.md)
+- Wikipedia -> [Wikiless](https://codeberg.org/orenom/Wikiless#instances)
 
 Suggestions are appreciated!
 
