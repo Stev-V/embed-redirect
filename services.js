@@ -15,6 +15,7 @@ module.exports = [
 		replaces: "YouTube",
 		instances: "https://github.com/iv-org/documentation/blob/master/Invidious-Instances.md",
 		default: "yewtu.be",
+		replacedURL: "youtube.com",
 		embedMatches: (embed) => {return embed.video && (embed.video.originalURL ? embed.video.originalURL : embed.video.url).includes("youtube")},
 		replaceEmbed: (embed, settings) => {
 	        if (!embed.video.originalURL) embed.video.originalURL = embed.video.url;
@@ -47,6 +48,7 @@ module.exports = [
 		replaces: "Twitter",
 		instances: "https://github.com/zedeus/nitter/wiki/Instances",
 		default: "nitter.moomoo.me",
+		replacedURL: "twitter.com",
 		embedMatches: (embed) => {return embed.footer && embed.footer.text == "Twitter"},
 		replaceEmbed: (embed, settings) => {
 	        let instance = setting(settings, "nitterInstance", "nitter.moomoo.me")
@@ -77,6 +79,7 @@ module.exports = [
 		replaces: "reddit",
 		instances: "https://github.com/spikecodes/libreddit#instances",
 		default: "libredd.it",
+		replacedURL: "reddit.com",
 		embedMatches: (embed) => {return embed.provider && embed.provider.name == "reddit"},
 		replaceEmbed: (embed, settings) => {
 	        let instance = setting(settings, "libredditInstance", "libredd.it")
@@ -101,6 +104,7 @@ module.exports = [
 		replaces: "Instagram",
 		instances: "https://git.sr.ht/~cadence/bibliogram-docs/tree/master/docs/Instances.md",
 		default: "bibliogram.snopyta.org",
+		replacedURL: "instagram.com",
 		embedMatches: (embed) => {return false},
 		replaceEmbed: (embed, settings) => {},
 		replaceLink: (link, settings) => {
@@ -120,6 +124,7 @@ module.exports = [
 		replaces: "Wikipedia",
 		instances: "https://codeberg.org/orenom/Wikiless#instances",
 		default: "wikiless.org",
+		replacedURL: "en.wikipedia.org",
 		embedMatches: (embed) => {return false},
 		replaceEmbed: (embed, settings) => {},
 		replaceLink: (link, settings) => {
