@@ -66,7 +66,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace("twitter.com", setting(settings, "nitterInstance", "nitter.moomoo.me"))
+			link.props.href = link.props.href.replace(link.props.href.includes("fxtwitter.com") ? "fxtwitter.com" : "twitter.com", setting(settings, "nitterInstance", "nitter.moomoo.me"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
@@ -136,6 +136,7 @@ module.exports.guide = {
 	"www.youtube.com": 0,
 	"youtu.be": 0,
 	"twitter.com": 1,
+	"fxtwitter.com": 1,
 	"reddit.com": 2,
 	"redd.it": 2,
 	"instagram.com": 3,
