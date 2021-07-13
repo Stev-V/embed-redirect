@@ -3,5 +3,6 @@
   "version": "1.0.0",
   "description": "Changes the destination of embeds for some track-happy services.",
   "author": "TaiAurori#6781",
-  "license": "MIT"
+  "license": "MIT",
+  "optionalDependencies": ["mtega"]
 }

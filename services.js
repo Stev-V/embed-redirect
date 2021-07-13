@@ -55,6 +55,7 @@ module.exports = [
 		            embed.url = embed.url.replace("twitter.com", instance)
 		            embed.author.url = embed.author.url.replace("twitter.com", instance)
 	            }
+	            if (embed.mtega) embed.video.url = embed.video.url.replace("twitter.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.footer.text = "Nitter 🠔 Twitter"
 	                delete embed.footer.iconProxyURL
