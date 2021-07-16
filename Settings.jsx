@@ -18,6 +18,10 @@ module.exports = class Settings extends React.PureComponent {
   render() {
     return (
       <div>
+        <FormText><b>Notice:</b> You are <i>not</i> required to use the alternative services specifically mentioned in these sections. Any service that implements a similar path system to the ones mentioned should function correctly 
+        <br/>(e.g "youtube.com/watch?v=..." == "(other youtube frontend).com/watch?v=...")</FormText>
+        <br/>
+        <br/>
         <SwitchItem
           note="Embed cosmetics will make embeds with redirected services visually different. (may require refresh to apply)"
           value={settings.getSetting("enableCosmetics", true)}
