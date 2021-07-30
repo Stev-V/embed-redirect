@@ -78,7 +78,7 @@ module.exports = [
 		name: "Libreddit",
 		replaces: "reddit",
 		instances: "https://github.com/spikecodes/libreddit#instances",
-		default: "libreddit.40two.app",
+		default: "libreddit.cyberhost.uk",
 		replacedURL: "reddit.com",
 		embedMatches: (embed) => {return embed.provider && embed.provider.name == "reddit"},
 		replaceEmbed: (embed, settings) => {
