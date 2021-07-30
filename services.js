@@ -25,10 +25,10 @@ module.exports = [
 	        } else {
 	        	if (!settings.get("redirectColorEmbeds", true)) {
 		            embed.provider.url = "https://" + instance
-		            embed.author.url = embed.author.url.replace("www.youtube.com", instance)
-		            embed.url = embed.url.replace("www.youtube.com", instance)
+		            embed.author.url = embed.author.url.replace("www.", "").replace("youtube.com", instance)
+		            embed.url = embed.url.replace("www.", "").replace("youtube.com", instance)
 	            }
-	            embed.video.url = embed.video.url.replace("www.youtube.com", instance)
+	            embed.video.url = embed.video.url.replace("www.", "").replace("youtube.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.provider.name = "Invidious 🠔 YouTube"
 	                embed.color = "#f1680d"
@@ -37,7 +37,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace(/www\.youtube\.com|youtu\.be/, setting(settings, "invidiousInstance", "yewtu.be"))
+			link.props.href = link.props.href.replace(/(www\.)?youtube\.com|youtu\.be/, setting(settings, "invidiousInstance", "yewtu.be"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
@@ -84,7 +84,7 @@ module.exports = [
 		replaceEmbed: (embed, settings) => {
 	        let instance = setting(settings, "libredditInstance", "libreddit.40two.app")
 	        if (instance) {
-	            if (!settings.get("redirectColorEmbeds", true)) embed.url = embed.url.replace("libreddit.40two.app", instance)
+	            if (!settings.get("redirectColorEmbeds", true)) embed.url = embed.url.replace("reddit.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
 	                embed.provider.name = "Libreddit 🠔 reddit"
 	                embed.color = "#009a9a"
@@ -93,7 +93,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace(/reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libreddit.40two.app"))
+			link.props.href = link.props.href.replace(/((old|new|www)\.)?reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libreddit.40two.app"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
@@ -139,9 +139,13 @@ module.exports = [
 
 module.exports.guide = {
 	"www.youtube.com": 0,
+	"youtube.com": 0,
 	"youtu.be": 0,
 	"twitter.com": 1,
 	"fxtwitter.com": 1,
+	"www.reddit.com": 2,
+	"old.reddit.com": 2,
+	"new.reddit.com": 2,
 	"reddit.com": 2,
 	"redd.it": 2,
 	"instagram.com": 3,

@@ -17,6 +17,8 @@ const Settings = require("./Settings");
 
 const services = require("./services.js");
 
+const redirectLinkColor = "#1fdd7e"
+
 module.exports = class EmbedRedirect extends Plugin {
     startPlugin() {
         settings = this.settings;
@@ -26,6 +28,15 @@ module.exports = class EmbedRedirect extends Plugin {
             render: Settings
         });
         this.initInject();
+    }
+
+    trimLink(link) {
+        let trimmed = link
+	    if (trimmed.startsWith("https://") || trimmed.startsWith("http://")) trimmed = trimmed.split("://")[1]
+	    if (trimmed.endsWith("/")) trimmed = trimmed.slice(0, trimmed.length - 1)
+	    if (trimmed.includes("/")) trimmed = trimmed.split("/")[0]
+	    trimmed = trimmed.trim() // trimmed x1000
+	    return trimmed
     }
 
     async initInject() {
@@ -46,10 +57,7 @@ module.exports = class EmbedRedirect extends Plugin {
         let Anchor = await getModule(m => m.default?.displayName === "Anchor")
         inject("embed-redirect-link", Anchor, "default", (args, res) => {
             if (res.props.href) {
-            	let trimmed = res.props.href
-			    if (trimmed.startsWith("https://") || trimmed.startsWith("http://")) trimmed = trimmed.split("://")[1]
-			    if (trimmed.endsWith("/")) trimmed = trimmed.slice(0, trimmed.length - 1)
-			    if (trimmed.includes("/")) trimmed = trimmed.split("/")[0]
+            	let trimmed = this.trimLink(res.props.href)
 			    if (trimmed in services.guide) {
 			    	let service = services[services.guide[trimmed]]
 			    	if (service) {
@@ -60,9 +68,34 @@ module.exports = class EmbedRedirect extends Plugin {
 			    }
             }
             return res
-        })
+        })        
         Anchor.default.displayName = "Anchor"
 
+		inject("embed-redirect-textbox-link", (await getModule(m => m.default?.displayName === "SlateChannelTextArea")).default.prototype, "render", (args, res) => {
+			if (settings.get("enableCosmetics", true)) {
+				setTimeout(() => { // yes this is a dumb workaround, no i dont care
+				    let inputItems = res.props.children[1].ref.current.children[0]?.children[0]?.children[0]?.children
+				    if (inputItems) {
+					    for (let item in inputItems) {
+					        if (!isNaN(new Number(item).valueOf())) {
+					            if (inputItems[item].children[0].className.includes("fakeLink")) {
+					            	let trimmed = this.trimLink(inputItems[item].children[0].children[0].innerText)
+								    if (trimmed in services.guide) {
+								    	let service = services[services.guide[trimmed]]
+								    	if (service) {
+								    		if (settings.get(service.name.toLowerCase() + "LinkActive", true)) {
+					                    		inputItems[item].children[0].children[0].style.color = redirectLinkColor
+								    		}
+								    	}
+								    }
+					            }
+					        }
+					    }
+				    }
+			    }, 0)
+		    }
+		    return res
+		})
         
         const Menu = await getModule(['MenuGroup', 'MenuItem'])
         const MessageContextMenu = await getModule(m => m.default && m.default.displayName == 'MessageContextMenu')
@@ -97,5 +130,6 @@ module.exports = class EmbedRedirect extends Plugin {
         uninject("embed-redirect");
         uninject("embed-redirect-link");
         uninject("embed-redirect-context-menu");
+        uninject("embed-redirect-textbox-link");
     };
 };
