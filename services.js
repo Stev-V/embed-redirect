@@ -82,7 +82,7 @@ module.exports = [
 		replacedURL: "reddit.com",
 		embedMatches: (embed) => {return embed.provider && embed.provider.name == "reddit"},
 		replaceEmbed: (embed, settings) => {
-	        let instance = setting(settings, "libredditInstance", "libreddit.40two.app")
+	        let instance = setting(settings, "libredditInstance", "libreddit.cyberhost.uk")
 	        if (instance) {
 	            if (!settings.get("redirectColorEmbeds", true)) embed.url = embed.url.replace("reddit.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
