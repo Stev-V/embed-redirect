@@ -93,7 +93,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace(/((old|new|www)\.)?reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libreddit.40two.app"))
+			link.props.href = link.props.href.replace(/((old|new|www)\.)?reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libreddit.cyberhost.uk"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
