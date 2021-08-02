@@ -78,11 +78,11 @@ module.exports = [
 		name: "Libreddit",
 		replaces: "reddit",
 		instances: "https://github.com/spikecodes/libreddit#instances",
-		default: "libreddit.cyberhost.uk",
+		default: "libreddit.silkky.cloud",
 		replacedURL: "reddit.com",
 		embedMatches: (embed) => {return embed.provider && embed.provider.name == "reddit"},
 		replaceEmbed: (embed, settings) => {
-	        let instance = setting(settings, "libredditInstance", "libreddit.cyberhost.uk")
+	        let instance = setting(settings, "libredditInstance", "libreddit.silkky.cloud")
 	        if (instance) {
 	            if (!settings.get("redirectColorEmbeds", true)) embed.url = embed.url.replace("reddit.com", instance)
 	            if (settings.get("enableCosmetics", true)) {
@@ -93,7 +93,7 @@ module.exports = [
 		},
 		replaceLink: (link, settings) => {
 			if (!link.props.originallink) link.props.originallink = link.props.href
-			link.props.href = link.props.href.replace(/((old|new|www)\.)?reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libreddit.cyberhost.uk"))
+			link.props.href = link.props.href.replace(/((old|new|www)\.)?reddit\.com|redd\.it/, setting(settings, "libredditInstance", "libreddit.silkky.cloud"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
