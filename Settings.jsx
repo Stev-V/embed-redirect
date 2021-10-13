@@ -62,7 +62,7 @@ module.exports = class Settings extends React.PureComponent {
                   	Replace Links
 			      </SwitchItem>
 		          <TextInput
-		            note={<span>{settings.getSetting(s.name.toLowerCase() + "Instance", s.default) == s.replacedURL ? <FormText style={{color: "#ff6666"}}>You think you're real funny, don't you?</FormText> : ""}This is the {s.name} instance that will replace all {s.replaces} links/embeds. <a href={s.instances} rel="noreferrer noopener" target="_blank">See here</a> for a list of {s.name} instances (maintained by someone else)</span>}
+		            note={<span>{settings.getSetting(s.name.toLowerCase() + "Instance", s.default) == s.replacedURL ? <FormText style={{color: "#ff6666"}}>You think you're real funny, don't you?</FormText> : ""}This is the {s.name} instance that will replace all {s.replaces} links/embeds. {s.instances && <span><a href={s.instances} rel="noreferrer noopener" target="_blank">See here</a> for a list of {s.name} instances (maintained by someone else)</span>}</span>}
 		            defaultValue={settings.getSetting(s.name.toLowerCase() + "Instance", s.default)}
 		            onChange={(val) =>
 		              settings.updateSetting(s.name.toLowerCase() + "Instance", val)

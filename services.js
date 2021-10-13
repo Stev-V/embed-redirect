@@ -135,6 +135,26 @@ module.exports = [
 			link.props.title = link.props.href
 		}
 	},
+	{
+		name: "Scribe",
+		replaces: "Medium",
+		instances: null,
+		default: "scribe.rip",
+		replacedURL: "medium.com",
+		embedMatches: (embed) => {return embed.provider && embed.provider.name == "Medium"},
+		replaceEmbed: (embed, settings) => {
+			if (settings.get("enableCosmetics", true)) {
+				embed.provider.name = "Scribe 🠔 Medium"
+			}
+		},
+		replaceLink: (link, settings) => {
+			if (!link.props.originallink) link.props.originallink = link.props.href
+			link.props.href = link.props.href.replace("medium.com", setting(settings, "scribeInstance", "scribe.rip"))
+			link.props.onClick = (e) => {}
+			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
+			link.props.title = link.props.href
+		}
+	},
 ]
 
 module.exports.guide = {
@@ -151,4 +171,5 @@ module.exports.guide = {
 	"instagram.com": 3,
 	"www.instagram.com": 3,
 	"en.wikipedia.org": 4,
+	"medium.com": 5,
 }
