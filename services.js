@@ -111,9 +111,9 @@ module.exports = [
 			if (!link.props.originallink) link.props.originallink = link.props.href
 			let subpage = link.props.href.split("://")[1].split("/")[1]
 			if (!(["", "p", "about"].includes(subpage))) {
-				link.props.href = link.props.href.replace("instagram.com/", "instagram.com/u/")
+				link.props.href = link.props.href.replace("www.instagram", "instagram").replace("instagram.com/", "instagram.com/u/")
 			}
-			link.props.href = link.props.href.replace("instagram.com", setting(settings, "bibliogramInstance", "bibliogram.snopyta.org"))
+			link.props.href = link.props.href.replace("www.instagram", "instagram").replace("instagram.com", setting(settings, "bibliogramInstance", "bibliogram.snopyta.org"))
 			link.props.onClick = (e) => {}
 			if (settings.get("enableCosmetics", true)) link.props.style = {color: redirectLinkColor}
 			link.props.title = link.props.href
@@ -149,5 +149,6 @@ module.exports.guide = {
 	"reddit.com": 2,
 	"redd.it": 2,
 	"instagram.com": 3,
+	"www.instagram.com": 3,
 	"en.wikipedia.org": 4,
 }
