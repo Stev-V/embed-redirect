@@ -9,6 +9,7 @@ Currently, we have:
 - Reddit -> [Libreddit](https://github.com/spikecodes/libreddit#instances)
 - Instagram -> [Bibliogram](https://git.sr.ht/~cadence/bibliogram-docs/tree/master/docs/Instances.md)
 - Wikipedia -> [Wikiless](https://codeberg.org/orenom/Wikiless#instances)
+- Medium -> Scribe
 
 Suggestions are appreciated!
 
