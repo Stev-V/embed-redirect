@@ -14,12 +14,12 @@ module.exports = [
 		name: "Invidious",
 		replaces: "YouTube",
 		instances: "https://github.com/iv-org/documentation/blob/master/Invidious-Instances.md",
-		default: "invidious.osi.kr",
+		default: "invidious.kavin.rocks",
 		replacedURL: "youtube.com",
 		embedMatches: (embed) => {return embed.video && (embed.video.originalURL ? embed.video.originalURL : embed.video.url).includes("youtube")},
 		replaceEmbed: (embed, settings) => {
 	        if (!embed.video.originalURL) embed.video.originalURL = embed.video.url;
-	        let instance = setting(settings, "invidiousInstance", "invidious.osi.kr")
+	        let instance = setting(settings, "invidiousInstance", "invidious.kavin.rocks")
 	        if (!instance) {
 	            embed.video.url = "data:text/plain,No Invidious instance selected. You can either:\n- Go to the settings page for Embed Redirect and select one\n- Turn off Embed Redirect\n\n\n"
 	        } else {
